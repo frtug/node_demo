@@ -1,63 +1,66 @@
 // const http = require('http')
-
-import * as fs from 'fs'
 import {createServer} from 'http' 
+import express from 'express'
 
+import {serverHandler} from './routes.mjs'
+
+import adminRouter from './router/admins.mjs'
+
+// require is common js method
+
+// import is es modules
+const app = express()
 const port = 3000
+app.use(express.urlencoded({extended:true}))
 
-function serverHandler(req,res){
-    console.log("I am the server")
-    // console.log(req)
-    // TODO -> filter the request event
 
-    // res.writeHead(201,{"Content-Type":"text/plain"})
-    
-    console.log(req.url)
-    console.log(req.method)
-    const url = req.url;
-    const method = req.method;
-    if(url === '/name' && method === 'POST'){
-        const body = [];
-        req.on('data',(chunk)=>{
-            console.log(chunk)
-            body.push(chunk)
-        })
-        req.on('end',()=>{
-            const parsedBody = Buffer.concat(body).toString();
-            console.log(parsedBody)
-            const name = parsedBody.split("=")[1]
-            fs.writeFileSync('name.txt',name)
+app.use((req,res,next)=>{
+    console.log("i am express server")
+    // res.send('Hello World')
+    next()
+})
+app.use((req,res,next)=>{
+    console.log("i am server")
+    // res.send('Hello World')
+    next()
+})
 
-        })
+app.use(adminRouter)
 
-        res.statusCode = 302
-        res.setHeader('location','/')
-        return res.end();
-        // process.exit()
-    }
-    res.statusCode = 200;
-    res.setHeader('Content-type',"text/html")
-    res.write("<div>")
-    res.write("<h1>Form</h1>")
-    res.write("<form action='/name' method='POST'><input placeholder='Enter the name' name='name'/> <button type='submit'> Submit</form>")
 
-    res.write("<div>")
-    res.end()
 
-    
-}
-const server = createServer(serverHandler)
+app.use('/',(req,res)=>{
+    res.send(" Hello Welcome to your Node js Page")
+})
 
-server.listen(port,()=>{{
-    console.log("server is runing,",port)
+app.listen(port,()=>{{
+    console.log("server is runn,",port)
 }})
 
-http
-https
-fs
-os
-path 
 
-express
-bodyParser
-cors
+
+
+// const server = createServer(serverHandler)
+
+// server.listen(port,()=>{{
+//     console.log("server is runn,",port)
+// }})
+
+
+
+
+
+
+
+
+
+
+// http
+// https
+// fs
+// os
+// path 
+
+// express
+// bodyParser
+// cors
