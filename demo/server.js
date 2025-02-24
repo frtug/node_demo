@@ -1,4 +1,11 @@
-// const http = require('http')
+// create a Nav bar,
+// //  home, contact , login 
+// basic home, create it
+// contact is the existing form page
+// login page 
+// create error page with css
+
+
 const express = require('express')
 
 const adminRouter = require('./router/admins.js')
@@ -22,13 +29,22 @@ app.use((req,res,next)=>{
     next()
 })
 
-app.use(adminRouter.router)
-
-console.log(adminRouter.name)
+app.use('/admin',adminRouter.router)
 
 
-app.use('/',(req,res)=>{
+// console.log(adminRouter.name)
+
+
+app.get('/',(req,res)=>{
     res.send(" Hello Welcome to your Node js Page")
+})
+app.get('*',(req,res)=>{
+    res.send("Error can't find any page")
+})
+app.post('*',(req,res)=>{
+    res.json({message:"Error can't find the page",
+        status:404
+    })
 })
 
 app.listen(port,()=>{{
