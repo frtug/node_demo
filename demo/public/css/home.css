@@ -1,0 +1,20 @@
+.header{
+    padding:2rem;
+}
+nav{
+    height:5rem;
+    background-color: wheat;
+    display: flex;
+    padding-top: 1rem;
+}
+li{
+    list-style: none ;
+    margin-right:3rem;
+    
+}
+li a{
+    text-decoration: none;
+}
+.active{
+    color:green;
+}
