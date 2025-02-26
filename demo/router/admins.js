@@ -6,16 +6,15 @@ const rootDir = require('../utils/path')
 
 const adminRouter = express.Router();
 
-const users =  require('../server')
+const movies =  require('../server')
 
-adminRouter.post('/add',(req,res)=>{
+adminRouter.post('/add-movie',(req,res)=>{
     console.log("Adding name in express")
-        console.log(req.body)
 
-    // console.log(users)
+    console.log(movies)
 
     // users.push(req.body.name);
-    users.users.push(req.body.name)
+    movies.movies.push(req.body.name)
     fs.writeFile('name.txt',req.body.name,(err)=>{
                     if(err) console.log("give the erro",err)
                     res.redirect('/')
@@ -23,7 +22,8 @@ adminRouter.post('/add',(req,res)=>{
 })
 adminRouter.get('/name',(req,res,next)=>{
     console.log("i am in name")
-    res.sendFile(path.join(rootDir,'views','form-user.html'))
+    // res.sendFile(path.join(rootDir,'views','form-user.html'))
+    res.render('form-user',{})
 })
 
 module.exports = {

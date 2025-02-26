@@ -6,8 +6,15 @@ block styles
 block content
     .main 
         h1 This is my #{page}
-        img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s",alt="photo") 
-    ul
-        each user in users
-            li= user
+    
+    each movie in movies
+        div.movie-card
+            h2 #{movie}
+            img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s",alt="photo") 
+            div.movie-details
+                span.ratingRating: 4
+                span.genre Sci-Fi
+   
+            p.description A daring crew embarks on an interstellar journey to discover a new habitable planet, facing unforeseen challenges and cosmic wonders along the way.
+       
 

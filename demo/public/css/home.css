@@ -18,3 +18,35 @@ li a{
 .active{
     color:green;
 }
+
+.movie-card {
+    width: 300px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    font-family: sans-serif;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .movie-card h2 {
+    margin-top: 0;
+  }
+  
+  .movie-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .rating {
+    font-weight: bold;
+  }
+  
+  .genre {
+    color: #888;
+  }
+  
+  .description {
+    line-height: 1.6;
+  }
