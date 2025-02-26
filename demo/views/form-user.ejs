@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/home.css" />
+
+</head>
+<body>
+        <div class="header">
+            <nav>
+                <li ><a href="/" >Home</a></li>
+                <li><a class="active" href="/admin/name" >Contact</a></li>
+                <li><a href="/admin/login" >Login</a></li>
+            </nav>
+        </div>
+    <div>
+        <h1>Add a add-movie</h1>
+        <form action='/admin/add-movie' method='POST'>
+            <input placeholder='Enter the movie name' name='name'/>
+             <button type='submit'> Add </button>
+        </form>
+    </div>
+</body>
+</html>

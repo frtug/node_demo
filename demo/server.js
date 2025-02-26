@@ -11,7 +11,7 @@ const adminRouter = require('./router/admins.js')
 const path = require('path')
 const rootDir = require('./utils/path.js')
 const fs = require('fs')
-const engine = require('express-handlebars')
+// const engine = require('express-handlebars')
 
 // require is common js method
 
@@ -21,9 +21,9 @@ const port = 3000
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
-app.engine('handlebars',engine.engine())
+// app.engine('handlebars',engine.engine())
 
-app.set('view engine', 'handlebars')
+app.set('view engine', 'ejs')
 app.set('views','./views')
 // app.use((req,res,next)=>{
 //     console.log("i am express server")
