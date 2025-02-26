@@ -11,6 +11,7 @@ const adminRouter = require('./router/admins.js')
 const path = require('path')
 const rootDir = require('./utils/path.js')
 const fs = require('fs')
+const engine = require('express-handlebars')
 
 // require is common js method
 
@@ -20,10 +21,10 @@ const port = 3000
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
+app.engine('handlebars',engine.engine())
 
-
-app.set('view engine', 'pug')
-app.set('views','views')
+app.set('view engine', 'handlebars')
+app.set('views','./views')
 // app.use((req,res,next)=>{
 //     console.log("i am express server")
 //     // res.send('Hello World')
@@ -34,13 +35,13 @@ app.set('views','views')
 //     // res.send('Hello World')
 //     next()
 // })
-const users = []; // in memory.
+const movies = []; // in memory.
 
 app.use('/admin',adminRouter.router)
 
 
 app.get('/',(req,res)=>{
-    res.render('home',{path:'/',page:'Home page',users:users})
+    res.render('home',{path:'/',page:'Home page',movies:movies})
 })
 
 app.get('*',(req,res)=>{
@@ -56,7 +57,7 @@ app.listen(port,()=>{{
     console.log("server is runn,",port)
 }})
 
-module.exports.users = users;
+module.exports.movies = movies;
 
 // const server = createServer(serverHandler)
 
