@@ -38,17 +38,7 @@ const users = []; // in memory.
 
 app.use('/admin',adminRouter.router)
 
-app.post('/admin/add',(req,res)=>{
-    console.log("Adding name in express")
-    console.log(req.body)
-    users.push(req.body.name);
-    console.log(users)
 
-    fs.writeFile('name.txt',req.body.name,(err)=>{
-                    if(err) console.log("give the erro",err)
-                    res.redirect('/')
-    })
-})
 app.get('/',(req,res)=>{
     res.render('home',{path:'/',page:'Home page',users:users})
 })
@@ -66,7 +56,7 @@ app.listen(port,()=>{{
     console.log("server is runn,",port)
 }})
 
-
+module.exports.users = users;
 
 // const server = createServer(serverHandler)
 

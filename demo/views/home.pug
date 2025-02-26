@@ -1,23 +1,13 @@
-doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title #{page}
-        link(rel="stylesheet",href="/css/home.css")
-    body
-        div.header
-            nav
-                li 
-                    a(class=(path === '/' ? "active" :'') href='/') home
-                li 
-                    a(class=(path === '/admin/name' ? "active" :'') href='/admin/name') Contact
-                li
-                    a(class=(path === '/admin/login' ? "active" :'') href='/admin/login') Login
-        .main 
-            h1 This is #{page}
-            img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s",alt="photo") 
-        ul
-            each user in users
-                li= user
+extends layouts/main.pug
+
+block styles
+    link(rel="stylesheet",href="/css/home.css")
+
+block content
+    .main 
+        h1 This is my #{page}
+        img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s",alt="photo") 
+    ul
+        each user in users
+            li= user
 
