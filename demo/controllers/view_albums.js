@@ -1,10 +1,11 @@
 
 const Movie = require('../models/movies')
-const movies = Movie.getAllMovie();    
 
 module.exports.view_home = (req,res)=>{
     //saving.....
+    Movie.getAllMovie((movies)=>{
+        res.render('home',{path:'/',page:'Home page',movies:movies})
+    });    
 
-    res.render('home',{path:'/',page:'Home page',movies:movies})
 }
 // module.exports.movies = movies;
