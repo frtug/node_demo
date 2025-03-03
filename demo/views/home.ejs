@@ -27,6 +27,13 @@
               <span class="genre"><%= movies[i].tags %></span>
             </div>
             <p class="description"><%= movies[i].desc %></p>
+            <!-- TODO add a delte id  -->
+            <form action="/admin/delete/<%= movies[i].id %>" method="POST">
+                <button type="submit"> Delete</button>
+            </form>
+            <form action="/admin/get-details/<%= movies[i].id %>" method="POST">
+                <button type="submit"> Details</button>
+            </form>
           </div>
           <% } %>
 
