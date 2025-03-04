@@ -27,6 +27,10 @@
             <input placeholder='Enter the url' name='url' />
              <button type='submit'> Convert </button>
         </form>
+        <% if(page==="url" && local_url){ %>
+            <h3> <%= local_url%></h3>
+        <% } %>
+
     </div>
 </body>
 </html>
