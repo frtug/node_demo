@@ -6,6 +6,10 @@ const errors = require('../controllers/errors')
 const view_albums = require('../controllers/view_albums')
 
 router.get('/',view_albums.view_home)
+router.post('/url-short',view_albums.url_shortner)
+router.get('/short/:short_url',view_albums.short)
+
+
 router.post('*',errors.post_404)
 // router.get('*',errors.get_404)
 
