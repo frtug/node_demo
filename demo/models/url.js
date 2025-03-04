@@ -31,7 +31,7 @@ module.exports = class Url{
                     console.log(urls)
                     console.log(this)
                     // const {this.short_url} = this.originalUrl; 
-                    const short = this.short_url;
+                    // const short = this.short_url;
                     const u ={
                         [this.short_url]:this.originalUrl
                     }
@@ -41,7 +41,8 @@ module.exports = class Url{
                     fs.writeFile(p,received_urls,(err)=>{
                         if(err){console.log("data err")}
                         else {console.log("data successful")}
-                        cb(null)
+                        const local_url = `http://localhost:3000/short/${this.short_url}`
+                        cb(local_url)
                         
                     })
             })

@@ -11,7 +11,7 @@ module.exports.getDetail = (req,res)=>{
 module.exports.addMovie = (req,res,next)=>{
     console.log("i am in name")
     // res.sendFile(path.join(rootDir,'views','form-user.html'))
-    res.render('form-user',{})
+    res.render('form-user',{page:"Form"})
 }
 module.exports.addingMovie = (req,res)=>{
     console.log("Adding name in express")

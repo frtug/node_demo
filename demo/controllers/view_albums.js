@@ -13,10 +13,11 @@ module.exports.view_home = (req,res)=>{
 module.exports.url_shortner = (req,res)=>{
     // saving the origin url in the file
     const url = new Url(req.body.url)
-    url.save(()=>{
+    url.save((local_url)=>{
+        console.log(local_url)
+        res.render('form-user',{path:'/admin/movies',page:'url',local_url:local_url})
         console.log("saved url " )
     })
-    res.render('form-user',{path:'/admin/movies',page:'Movie page'})
 
 }
 module.exports.short = (req,res)=>{
