@@ -6,7 +6,20 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/style.css"/>
     <link rel="stylesheet" href="/css/home.css" />
-
+    <style>
+         button {
+      padding: 10px 10px;
+      font-size: 1em;
+      cursor: pointer;
+      border: none;
+      background-color: #263d55;
+      color: white;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    </style>
 </head>
 <body>
         <div class="header">
@@ -28,9 +41,26 @@
              <button type='submit'> Convert </button>
         </form>
         <% if(page==="url" && local_url){ %>
-            <h3> <%= local_url%></h3>
+            <a href="<%= local_url %>" id="shortId"> <%= local_url%></a>
+            <button onclick="copyToClipboard()">Click to Copy</button>
+
         <% } %>
 
     </div>
+    <script>
+        function copyToClipboard() {
+          // Get the text from the div
+          const text = document.getElementById('shortId').innerText;
+    
+          // Use the Clipboard API to copy the text
+          navigator.clipboard.writeText(text)
+            .then(() => {
+              alert('Copied to clipboard: ' + text);
+            })
+            .catch((err) => {
+              console.error('Failed to copy: ', err);
+            });
+        }
+      </script>
 </body>
 </html>
