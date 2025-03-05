@@ -19,19 +19,23 @@ function readAllUrls(callback){
         }
     })
 }
+async function generate(){
+    const { nanoid } = await import("nanoid");
+    return nanoid(6);
+};
 module.exports = class Url{
     constructor(originalUrl){
-            this.short_url = uuidv4();
+            this.short_url = "";
             this.originalUrl = originalUrl
-            
         }
-        save(cb){
-            readAllUrls((urls)=>{
+        async save(cb){
+             readAllUrls(async (urls)=>{
                     // let urls = {}
                     console.log(urls)
                     console.log(this)
                     // const {this.short_url} = this.originalUrl; 
                     // const short = this.short_url;
+                    this.short_url = await generate();
                     const u ={
                         [this.short_url]:this.originalUrl
                     }
