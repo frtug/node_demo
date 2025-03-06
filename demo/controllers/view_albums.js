@@ -12,19 +12,22 @@ module.exports.view_home = (req,res)=>{
 
 module.exports.url_shortner = (req,res)=>{
     // saving the origin url in the file
+    // post req.
     const url = new Url(req.body.url)
-    url.save((local_url)=>{
-        console.log(local_url)
+    url.save().then((short)=>{
+        // console.log(result)
+        const local_url=`http:localhost:3000/short/${short}`
         res.render('form-user',{path:'/admin/movies',page:'url',local_url:local_url})
-        console.log("saved url " )
     })
+
 
 }
 module.exports.short = (req,res)=>{
     // redirect to the matched short key
     const short = req.params.short_url;
-    Url.findByKey(short,(url)=>{
+    Url.findByKey(short).then((url)=>{
         res.redirect(url)
     })
+    
 }
 // module.exports.movies = movies;
