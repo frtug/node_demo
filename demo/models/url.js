@@ -22,6 +22,7 @@ module.exports = class Url{
         }
         static async findByKey(key){
             const db= getDb();
+            console.log(key)
             const result_doc = await db.collection('url').findOne({short_url:key})
             return result_doc ? result_doc.originalUrl : "https://google.com"; 
         }
