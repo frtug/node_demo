@@ -1,41 +1,51 @@
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> <%= page%> </title>
+    <title><%= page%></title>
     <link rel="stylesheet" href="/css/home.css" />
 </head>
 <body>
-    <div class="header">
-        <%= page%>
-        <nav>
-            <li ><a class="active" href="/" >Home</a></li>
-            <li><a href="/admin/movie" >Contact</a></li>
-            <li><a href="/admin/login" >Login</a></li>
+    <header class="main-header">
+        <h1 class="page-title"><%= page%></h1>
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/movie">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/login">Login</a></li>
+            </ul>
         </nav>
-    </div>
+    </header>
 
-        
-        <% for(let i=0;i<movies.length;i++) { %>
-        <div class="movie-card">
-            <h2><%=movies[i].title%> <%= movies[i].id %></h2>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s" alt="photo">
-            <div class="movie-details">
-              <span class="rating"><%= movies[i].rating %></span>
-              <span class="genre"><%= movies[i].tags %></span>
-            </div>
-            <p class="description"><%= movies[i].desc %></p>
-            <!-- TODO add a delte id  -->
-            <form action="/admin/delete/<%= movies[i].id %>" method="POST">
-                <button type="submit"> Delete</button>
-            </form>
-            <form action="/admin/get-details/<%= movies[i].id %>" method="POST">
-                <button type="submit"> Details</button>
-            </form>
-          </div>
-          <% } %>
+    <main class="content">
+        <div class="movie-grid">
+            <% for(let i=0; i<movies.length; i++) { %>
+                <div class="movie-card">
+                    <h2 class="movie-title"><%=movies[i].title%> <span class="movie-id"><%= movies[i].id %></span></h2>
+                    <div class="movie-poster">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s" alt="<%=movies[i].title%> poster">
+                    </div>
+                    <div class="movie-details">
+                        <span class="rating">Rating: <%= movies[i].rating %></span>
+                        <span class="genre">Genre: <%= movies[i].tags %></span>
+                    </div>
+                    <p class="movie-description"><%= movies[i].desc %></p>
+                    <div class="movie-actions">
+                        <form class="movie-action-form delete-form" action="/admin/delete/<%= movies[i]._id %>" method="POST">
+                            <button class="action-button delete-button" type="submit">Delete</button>
+                        </form>
+                        <form class="movie-action-form details-form" action="/admin/edit-details/<%= movies[i]._id %>" method="POST">
+                            <button class="action-button details-button" type="submit">Edit Details</button>
+                        </form>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </main>
 
+    <footer class="main-footer">
+        <p class="copyright">© <%= new Date().getFullYear() %> Movie Database</p>
+    </footer>
 </body>
 </html>

@@ -4,9 +4,12 @@ const Url = require('../models/url')
 
 module.exports.view_home = (req,res)=>{
     //saving.....
-    Movie.getAllMovie((movies)=>{
+    Movie.getAllMovie().then((movies)=> {
         res.render('home',{path:'/',page:'Home page',movies:movies})
+
     });    
+    // res.render('home',{path:'/',page:'Home page',movies:movies})
+
 
 }
 
@@ -16,7 +19,7 @@ module.exports.url_shortner = (req,res)=>{
     const url = new Url(req.body.url)
     url.save().then((short)=>{
         // console.log(result)
-        const local_url=`http:localhost:3000/short/${short}`
+        const local_url=`http://localhost:3000/short/${short}`
         res.render('form-user',{path:'/admin/movies',page:'url',local_url:local_url})
     })
 }

@@ -6,9 +6,11 @@ const router = express.Router();
 const album = require('../controllers/album')
 
 router.post('/add-movie',album.addingMovie)
-router.get('/get-detail/:id',album.getDetail)
+router.post('/edit-details/:id',album.editDetails)
 router.get('/movie',album.addMovie)
 router.post('/delete/:id',album.deleteMovie)
+router.post('/update-movie',album.updateDetails)
+
 
 // router.post("/shorten-url",(req,res)=>{
 //     const {inputUrl} = req.body;

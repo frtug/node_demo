@@ -11,6 +11,7 @@ const mongoConnect = cb =>{
       console.log('Mongodb is connected')
       cb();
     }).catch(err=>{
+      console.log("error at databse ")
       console.log(err)
     })
 }
