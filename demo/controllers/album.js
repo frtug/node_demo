@@ -1,11 +1,17 @@
 const Movie = require('../models/movies')
 const fs = require('fs')
 
-module.exports.getDetail = (req,res)=>{
-    console.log("i am in name")
-    res.json({"details":req.params.id})
-    // TODO to add details page with single card 
-    res.render('cardDetail',{})
+module.exports.editDetails = async (req,res)=>{
+    // console.log("i am in name")
+    // res.json({"details":req.params.id})
+    // TODO to add details page with single card
+    const id = req.params.id; 
+    const movie = await Movie.getAllMovie().then(movies =>{
+        return movies.filter(movie => movie._id == id)
+    }) 
+    console.log(movie)
+    res.render('editDetails',{page:'Edit Page',path:"/admin/edit-details",movie:movie[0]})
+    
 }
 
 module.exports.addMovie = (req,res,next)=>{
@@ -16,18 +22,31 @@ module.exports.addMovie = (req,res,next)=>{
 module.exports.addingMovie = (req,res)=>{
     console.log("Adding name in express")
     // users.push(req.body.name);
-    const movie1 = new Movie(req.body.title,"A daring crew embarks on an interstellar journey","Sci-Fi","4")
-    movie1.save(()=>{
-        // adding a callback to handle async operation
+    const movie = new Movie(req.body.title,"A daring crew embarks on an interstellar journey","Sci-Fi,Action,Comedy","4")
+    movie.save().then(
+        // console.log("saved")
         res.redirect('/')
-    });
-    
+
+    );
+
 }
 module.exports.deleteMovie = (req,res)=>{
     const id = req.params.id;
-    Movie.deleteMovie(id,()=>{
+    Movie.deleteMovie(id).then(
         res.redirect('/')
-    }); 
+    ); 
+    
+}
+module.exports.updateDetails = (req,res)=>{
+    const data = req.body;
+    console.log("updated with the login")
+    console.log(data)
+    const movie = new Movie(data.title,data.desc,data.tags,data.rating,data.id)
+    movie.update().then(()=>{
+            res.redirect('/') 
+        })
+   
+     
     
 }
     // fs.writeFile('name.txt',req.body.name,(err)=>{

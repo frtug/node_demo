@@ -3,64 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/style.css"/>
-    <link rel="stylesheet" href="/css/home.css" />
-    <style>
-         button {
-      padding: 10px 10px;
-      font-size: 1em;
-      cursor: pointer;
-      border: none;
-      background-color: #263d55;
-      color: white;
-      border-radius: 5px;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    </style>
+    <title>Movie & URL Management</title>
+    <link rel="stylesheet" href="/css/home.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
 </head>
 <body>
-        <div class="header">
-            <nav>
-                <li ><a href="/" >Home</a></li>
-                <li><a class="active" href="/admin/movie" >Contact</a></li>
-                <li><a href="/admin/login" >Login</a></li>
-            </nav>
-        </div>
-    <div>
-        <h1>Add a add-movie</h1>
-        <form action='/admin/add-movie' method='POST'>
-            <input placeholder='Enter the movie name' name='title' />
-             <button type='submit'> Add </button>
-        </form>
+  <header class="main-header">
+    <h1 class="page-title"><%= page%></h1>
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link " href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link active" href="/admin/movie">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="/admin/login">Login</a></li>
+        </ul>
+    </nav>
+</header>
+        <div class="container">
 
-        <form action='/url-short' method='POST'>
-            <input placeholder='Enter the url' name='url' />
-             <button type='submit'> Convert </button>
-        </form>
-        <% if(page==="url" && local_url){ %>
-            <a href="<%= local_url %>" id="shortId"> <%= local_url%></a>
-            <button onclick="copyToClipboard()">Click to Copy</button>
+        <main>
+          <h1>Admin Dashboard</h1>
 
-        <% } %>
-
+            <section class="card">
+                <h2>Add New Movie</h2>
+                <form action="/admin/add-movie" method="POST" class="form">
+                    <div class="form-group">
+                        <label for="movie-title">Movie Title</label>
+                        <input type="text" id="movie-title" placeholder="Enter the movie name" name="title" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Movie</button>
+                </form>
+            </section>
+            
+            <section class="card">
+                <h2>URL Shortener</h2>
+                <form action="/url-short" method="POST" class="form">
+                    <div class="form-group">
+                        <label for="long-url">Long URL</label>
+                        <input type="url" id="long-url" placeholder="Enter the URL to shorten" name="url" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Convert</button>
+                </form>
+                
+                <% if(page==="url" && local_url){ %>
+                <div class="result-container">
+                    <div class="shortened-url">
+                        <a href="<%= local_url %>" id="shortId" class="short-url"><%= local_url %></a>
+                    </div>
+                    <button onclick="copyToClipboard()" class="btn btn-secondary">Copy to Clipboard</button>
+                </div>
+                <% } %>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Admin Dashboard</p>
+        </footer>
     </div>
+    
     <script>
         function copyToClipboard() {
-          // Get the text from the div
-          const text = document.getElementById('shortId').innerText;
-    
-          // Use the Clipboard API to copy the text
-          navigator.clipboard.writeText(text)
-            .then(() => {
-              alert('Copied to clipboard: ' + text);
-            })
-            .catch((err) => {
-              console.error('Failed to copy: ', err);
-            });
+            const shortUrl = document.getElementById('shortId');
+            const tempInput = document.createElement('input');
+            tempInput.value = shortUrl.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            
+            // Show feedback
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
         }
-      </script>
+    </script>
 </body>
 </html>

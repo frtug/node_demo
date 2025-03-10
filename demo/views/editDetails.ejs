@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Movie</title>
+    <link rel="stylesheet" href="/css/new.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Movie Details Form</h1>
+            <p class="subtitle">Add a new movie to the collection</p>
+        </header>
+        
+        <main>
+            <div class="form-container">
+                <form action="/admin/update-movie" method="POST" class="movie-form">
+                    <div class="form-group">
+                        <label for="title">Movie Title</label>
+                        <input 
+                            type="text" 
+                            id="title" 
+                            name="title" 
+                            placeholder="Enter movie title" 
+                            value="<%= movie.title %> "
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="desc">Description</label>
+                        <textarea 
+                            id="desc" 
+                            name="desc" 
+                            placeholder="Enter movie description" 
+                            rows="4" 
+                            required
+                        ><%= movie ? movie.desc : '' %></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input 
+                            type="text" 
+                            id="tags" 
+                            name="tags" 
+                            placeholder="Enter tags separated by commas (action, comedy, drama)" 
+                            value="<%= movie ? movie.tags: '' %>"
+                        >
+                        <div class="form-hint">Separate tags with commas</div>
+                    </div>
+                    <input type="hidden" value="<%= movie._id %>" name="id">
+                    
+                    <div class="form-group">
+                        <label for="rating">Rating</label>
+                        <div class="rating-container">
+                            <input type="range" id="rating" name="rating" min="1" max="10" step="0.1" 
+                                value="<%= movie ? movie.rating : '7.5' %>"
+                                oninput="updateRatingValue(this.value)"
+                            >
+                            <div class="rating-value">
+                                <span id="ratingValue"><%= movie ? movie.rating : '7.5' %></span>/10
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Movie</button>
+                        <a href="/" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; <%= new Date().getFullYear() %> Movie Collection Manager</p>
+        </footer>
+    </div>
+    
+    <script>
+        function updateRatingValue(val) {
+            document.getElementById('ratingValue').textContent = val;
+        }
+    </script>
+</body>
+</html>
