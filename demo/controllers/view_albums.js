@@ -4,7 +4,7 @@ const Url = require('../models/url')
 
 module.exports.view_home = (req,res)=>{
     //saving.....
-    Movie.getAllMovie().then((movies)=> {
+    Movie.find().then((movies)=> {
         res.render('home',{path:'/',page:'Home page',movies:movies})
 
     });    
