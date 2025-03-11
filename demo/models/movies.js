@@ -1,76 +1,100 @@
+const mongoose = require('mongoose')
 
-const getDb = require('../utils/database').getDb
-const mongodb = require('mongodb')
+const Schema = mongoose.Schema;
+
+const movieSchema = new Schema({
+    title:{
+        type:String,
+        required: true
+    },
+    desc:{
+        type:String,
+        required: true
+    },
+    rating:{
+        type:Number,
+        required: true
+    },
+    tags:{
+        type:String,
+        required: true
+    }
+})
+module.exports = mongoose.model('Movie',movieSchema)
 
 
-module.exports = class Movie{
-    constructor(title,desc,tags,rating,id){
-        this.title = title
-        this.desc = desc
-        this.tags= tags
-        this.rating=rating;
-        this._id = new mongodb.ObjectId(id)
-    }
-     save(){
-        try{
-            const db = getDb();
-            console.log(this._id)
-            return  db.collection('movies').insertOne(this).then((res)=>{
-                console.log(res)
-                return res;
-            }).catch((err)=>{
-                console.log("error while saving")
-                throw err;
-            })
-        }catch(err){
-                console.log("error saving to mongo")
-            } 
-    }
-    update(){
-        try{
-            if(this._id){
-                console.log("id is there",this._id)
-            }
-            const db = getDb();
-            return db.collection('movies').updateOne({_id:this._id},{$set:this}).then((res)=>{
-                console.log("result")
-            }).catch((err)=>{
-                console.log("error while saving")
-                throw err;
-            })
-        }catch(err){
-                console.log("error saving to mongo")
-            }
-    }
-    static findByid(id){
-        const db = getDb();
-       return db.collection('movies').find({_id:mongodb.ObjectId(id)}).then(
-        (res)=> {
-            console.log(res)
-            return res;
-        })
-    }
-    static getAllMovie(){
-        const db = getDb();
-        console.log("came till here 2")
-        return db.collection('movies').find().toArray().then(
-            (res)=> {
-                console.log(res)
-                return res
-            }  
-        ).catch(err=>console.log('err',err))
-    }
-    static deleteMovie(id){
-        const db = getDb();
-        console.log("came till here 2")
-        return db.collection('movies').deleteOne({_id:new mongodb.ObjectId(id)}).then(
-            (res)=> {
-                console.log(res)
-                return res
-            }  
-        ).catch(err=>console.log('err',err))
-    }
-}
+// const getDb = require('../utils/database').getDb
+// const mongodb = require('mongodb')
+
+
+// module.exports = class Movie{
+//     constructor(title,desc,tags,rating,id){
+//         this.title = title
+//         this.desc = desc
+//         this.tags= tags
+//         this.rating=rating;
+//         this._id = new mongodb.ObjectId(id)
+//     }
+//      save(){
+//         try{
+//             const db = getDb();
+//             console.log(this._id)
+//             return  db.collection('movies').insertOne(this).then((res)=>{
+//                 console.log(res)
+//                 return res;
+//             }).catch((err)=>{
+//                 console.log("error while saving")
+//                 throw err;
+//             })
+//         }catch(err){
+//                 console.log("error saving to mongo")
+//             } 
+//     }
+//     update(){
+//         try{
+//             if(this._id){
+//                 console.log("id is there",this._id)
+//             }
+//             const db = getDb();
+//             return db.collection('movies').updateOne({_id:this._id},{$set:this}).then((res)=>{
+//                 console.log("result")
+//             }).catch((err)=>{
+//                 console.log("error while saving")
+//                 throw err;
+//             })
+//         }catch(err){
+//                 console.log("error saving to mongo")
+//             }
+//     }
+//     static findByid(id){
+//         const db = getDb();
+//        return db.collection('movies').find({_id:mongodb.ObjectId(id)}).then(
+//         (res)=> {
+//             console.log(res)
+//             return res;
+//         })
+//     }
+//     static getAllMovie(){
+//         const db = getDb();
+//         console.log("came till here 2")
+//         return db.collection('movies').find().toArray().then(
+//             (res)=> {
+//                 console.log(res)
+//                 return res
+//             }  
+//         ).catch(err=>console.log('err',err))
+//     }
+//     static deleteMovie(id){
+//         const db = getDb();
+//         console.log("came till here 2")
+//         return db.collection('movies').deleteOne({_id:new mongodb.ObjectId(id)}).then(
+//             (res)=> {
+//                 console.log(res)
+//                 return res
+//             }  
+//         ).catch(err=>console.log('err',err))
+//     }
+// }
 
 
 

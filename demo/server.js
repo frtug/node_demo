@@ -3,7 +3,8 @@ var cors = require('cors')
 
 const adminRoute = require('./routes/admins.js')
 const homeRoute = require('./routes/home.js')
-const mongoConnect = require('./utils/database.js').mongoConnect;
+// const mongoConnect = require('./utils/database.js').mongoConnect;
+const mongoose = require('mongoose');
 
 
 // type Param = Object;
@@ -28,7 +29,8 @@ app.set('views','./views')
 app.use('/admin',adminRoute.router)
 app.use('/',homeRoute.router)
 
-mongoConnect(()=>{
+mongoose.connect(process.env.MONGO_URI).then(()=>{
+    console.log("mongo connect")
     app.listen(port,()=>{{
         console.log("server is runn,",port)
     }})

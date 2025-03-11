@@ -12,6 +12,15 @@ router.post('/delete/:id',album.deleteMovie)
 router.post('/update-movie',album.updateDetails)
 
 
+
+module.exports = {
+    router:router
+}
+
+
+
+
+
 // router.post("/shorten-url",(req,res)=>{
 //     const {inputUrl} = req.body;
 //     // validation 
@@ -30,8 +39,3 @@ router.post('/update-movie',album.updateDetails)
 //     const originalUrl =  short[req.params.shortid];
 //     res.redirect(originalUrl)
 // })
-
-
-module.exports = {
-    router:router
-}
