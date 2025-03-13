@@ -5,13 +5,12 @@ const router = express.Router();
 
 const album = require('../controllers/album')
 
-router.post('/add-movie',album.addingMovie)
-router.post('/edit-details/:id',album.editDetails)
-router.get('/movie',album.addMovie)
+router.get('/',album.view_home)
+router.post('/add-movie',album.postMovie)
+router.post('/edit-details/:id',album.getEditDetails)
+router.get('/movie',album.getMoviePage)
 router.post('/delete/:id',album.deleteMovie)
-router.post('/update-movie',album.updateDetails)
-
-
+router.post('/update-movie',album.updateMovie)
 
 module.exports = {
     router:router
@@ -20,22 +19,3 @@ module.exports = {
 
 
 
-
-// router.post("/shorten-url",(req,res)=>{
-//     const {inputUrl} = req.body;
-//     // validation 
-//     const short_slug = nanoid();
-
-//     saveToFile(short_slug,inputUrl) // create a function
-
-//     short_urls[short_slug] = inputUrl;
-//     res.json({shortUrl:`http://localhost:3000/${shortUrl}`})
-// })
-// // redirects to the actual url 
-// router.get('/:shortid',(req,res)=>{
-//     // retreive from the json fil
-//      const short = fs.readFileSync()
-//      // req.parms vs req.query
-//     const originalUrl =  short[req.params.shortid];
-//     res.redirect(originalUrl)
-// })
