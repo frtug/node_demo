@@ -7,16 +7,7 @@
     <link rel="stylesheet" href="/css/home.css" />
 </head>
 <body>
-    <header class="main-header">
-        <h1 class="page-title"><%= page%></h1>
-        <nav class="main-nav">
-            <ul class="nav-list">
-                <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/movie">Contact</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/login">Login</a></li>
-            </ul>
-        </nav>
-    </header>
+    <%- include('./includes/navigation.ejs') %>
 
     <main class="content">
         <div class="movie-grid">
