@@ -25,9 +25,5 @@ module.exports = class Url{
             console.log(key)
             const result_doc = await db.collection('url').findOne({short_url:key})
             return result_doc ? result_doc.originalUrl : "https://google.com"; 
-        }
-
-
-        
-        
+        }  
 }
