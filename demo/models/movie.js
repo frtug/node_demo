@@ -18,8 +18,13 @@ const movieSchema = new Schema({
     tags:{
         type:String,
         required: true
+    },
+    userId:{
+        type:Schema.Types.ObjectId,
+        ref:"User",
+        required:true
     }
-})
+    },{ timestamps: true })
 module.exports = mongoose.model('Movie',movieSchema)
 
 

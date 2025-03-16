@@ -1,15 +1,25 @@
 <header class="main-header">
-    <h1 class="page-title"><%= page%></h1>
+    <h1 class="page-title"><%= page %></h1>
     <nav class="main-nav">
         <ul class="nav-list">
-            <li class="nav-item"><a class="nav-link active" href="/admin">Home</a></li>
+            <li class="nav-item">
+                <a class="nav-link <%= page === 'Home' ? 'active' : '' %>" href="/admin">Home</a>
+            </li>
             <% if(isAuthenticated){ %>
-                <li class="nav-item"><a class="nav-link" href="/admin/movie">Contact</a></li>
-
-                <% }else{ %>
-            <li class="nav-item"><a class="nav-link" href="/auth/getlogin">Login</a></li>
+                <li class="nav-item">
+                    <a class="nav-link <%= page === 'Form' ? 'active' : '' %>" href="/admin/movie">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= page === 'Logout' ? 'active' : '' %>" href="/auth/logout">Logout</a>
+                </li>
+            <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link <%= page === 'Login' ? 'active' : '' %>" href="/auth/getlogin">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= page === 'SignUp' ? 'active' : '' %>" href="/auth/getsignup">SignUp</a>
+                </li>
             <% } %>
-
         </ul>
     </nav>
 </header>

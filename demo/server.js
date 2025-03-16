@@ -3,6 +3,8 @@ var cors = require('cors')
 
 const adminRoute = require('./routes/admins.js')
 const homeRoute = require('./routes/home.js')
+const errors = require('./controllers/errors')
+
 // const mongoConnect = require('./utils/database.js').mongoConnect;
 const mongoose = require('mongoose');
 
@@ -38,6 +40,8 @@ app.set('views','./views')
 app.use('/admin',adminRoute.router)
 app.use(authRoute.router)
 app.use(homeRoute.router)
+
+app.use('*',errors.post_404)
 
 
 
