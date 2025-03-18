@@ -2,6 +2,8 @@
 const User = require('../models/user')
 const bcrypt = require('bcrypt');
 const randomtoken = require('../utils/random-token')
+const {validationResult} = require('express-validator')
+
 require('dotenv').config()
 
 module.exports.logout = (req,res)=>{
@@ -42,12 +44,21 @@ module.exports.login = (req,res)=>{
 module.exports.signUp = async(req,res)=>{
     console.log(" signup ")
     const {email,password} = req.body;
+    // TODO add the js to do validation....
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        return res.status(422).render('signUp',{
+            path:"/auth/getsignUp",
+            page:"SignUp",
+            isAuthenticated:req.session.isLoggedIn,
+            errorMessage:errors.array()[0].msg
+        })
+
+    }
     // login....
     const { Resend } = await import('resend');
 
     const resend = new Resend(process.env.EMAIL_KEY);
-
-
     User.findOne({email:email}).then(userDoc => {
         if(userDoc){
             console.log("user already exists")
@@ -70,7 +81,10 @@ module.exports.signUp = async(req,res)=>{
 module.exports.getsignUp = (req,res)=>{
     console.log(" get Signup ")
     res.render
-    ('signUp',{path:"/auth/getsignUp",page:"SignUp",isAuthenticated:req.session.isLoggedIn})
+    ('signUp',{path:"/auth/getsignUp",
+        page:"SignUp",
+        isAuthenticated:req.session.isLoggedIn,
+        errorMessage:""})
 }
 
 module.exports.getReset = (req,res)=>{

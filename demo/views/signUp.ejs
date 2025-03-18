@@ -15,7 +15,8 @@
         
         <main>
             <div class="form-container">
-                <form action="/auth/signUp" method="POST" class="movie-form">
+                <%= errorMessage %>
+                <form action="/auth/signUp" method="POST" class="movie-form" novalidate>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input 
