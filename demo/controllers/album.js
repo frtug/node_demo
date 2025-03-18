@@ -16,7 +16,6 @@ module.exports.view_home = (req,res)=>{
                 //     movies = []
                 // }
                 res.render('home',{path:'/',page:'Home',movies:m,isAuthenticated:isLoggedIn})
-
             }); 
     }
     else{
@@ -33,6 +32,7 @@ module.exports.getEditDetails = (req,res)=>{
 }
 
 module.exports.getMoviePage = (req,res,next)=>{
+    
     console.log("i am in name")
     // res.sendFile(path.join(rootDir,'views','form-user.html'))
     res.render('form-user',{page:"Form",isAuthenticated:req.session.isLoggedIn})
@@ -53,7 +53,7 @@ module.exports.postMovie = async (req, res) => {
         const savedMovie = await movie.save();
         const user = await User.findById(req.session.user._id); // Assuming you store user ID in session
         await user.addMovie(savedMovie);
-        req.session.user=user;
+        req.session.user=user; // updating the session
         console.log("Movie saved and user updated");
         res.redirect('/admin');
     } catch (error) {
@@ -79,7 +79,6 @@ module.exports.deleteMovie = async (req, res) => {
 };
 module.exports.updateMovie = async (req, res) => {
     const data = req.body;
-    const user = req.session.id
     try {
         const movie = await Movie.findById(data.id);
         if (!movie) {
@@ -90,13 +89,13 @@ module.exports.updateMovie = async (req, res) => {
         movie.desc = data.desc;
         movie.tags = data.tags;
         movie.rating = data.rating;
-        movie.userId = user._id
+        movie.userId = req.session.user._id
 
         await movie.save();
 
-        const user = await User.findById(req.session.user._id); // Assuming you store user ID in session
-        await user.updateMovie(movie);
-        req.session.user=user;
+        // const user = await User.findById(req.session.user._id); // Assuming you store user ID in session
+        // await user.updateMovie(movie);
+        // req.session.user=user;
 
         console.log("Movie updated and user updated");
         res.redirect('/admin');

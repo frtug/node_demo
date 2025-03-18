@@ -25,7 +25,13 @@ const store = new MongoDBStore({
     collection: 'sessions'
 })
 app.use(
-    session({secret:'My Movie',resave:false,saveUninitialized:false,store:store})
+    session({
+        secret:'My Movie',
+        resave:false,
+        saveUninitialized:false,
+        store:store,
+        
+    })
 )
 app.use(express.static('public'))
 

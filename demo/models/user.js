@@ -7,7 +7,8 @@ const userSchema = new Schema({
         type:String,
         required: true
     },
-    
+    resetToken: String,
+    resetTokenExpiration: Date,
     password:{
         type:String,
         required: true
@@ -34,14 +35,14 @@ userSchema.methods.deleteMovie = function(movieId){
     return this.save();
 
 }
-userSchema.methods.updateMovie = function(movie){
-    const movieToUpdate = this.movies.find((m) => m.movieId.toString() === movie._id.toString());
-    if (!movieToUpdate) {
-        throw new Error('Movie not found');
-    }
-    // movieToUpdate.title = movie.title;
-    movieToUpdate.movieId = movie._id; // Update the reference (if needed)
-
-    return this.save();
-}
+// userSchema.methods.updateMovie = function(movie){
+//     const movieToUpdate = this.movies.find((m) => m.movieId.toString() === movie._id.toString());
+//     if (!movieToUpdate) {
+//         throw new Error('Movie not found');
+//     }
+//     // movieToUpdate.title = movie.title;
+//     movieToUpdate.movieId = movie._id; // Update the reference (if needed)
+//     // TODO add more fields 
+//     return this.save();
+// }
 module.exports = mongoose.model('User',userSchema)
