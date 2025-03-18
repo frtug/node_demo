@@ -13,6 +13,7 @@
     "nodemon": "^3.1.9"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "connect-mongodb-session": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
@@ -24,6 +25,7 @@
     "mongoose": "^8.12.1",
     "nanoid": "^5.1.2",
     "pug": "^3.0.3",
+    "resend": "^4.1.2",
     "uuid": "^11.1.0"
   }
 }

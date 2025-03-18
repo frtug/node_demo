@@ -13,6 +13,10 @@ router.post('/auth/signUp',auth.signUp) // post signUp
 
 router.get('/auth/logout',auth.logout) // post signUp
 
+router.get('/auth/getreset',auth.getReset) // post signUp
+router.post('/auth/reset',auth.reset) // post signUp
+router.post('/auth/reset/complete',auth.reset_complete) // post signUp
+router.get('/auth/reset/:token',auth.reset_password) // post signUp
 
 
 module.exports = {
