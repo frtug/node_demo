@@ -7,6 +7,10 @@ const movieSchema = new Schema({
         type:String,
         required: true
     },
+    imageUrl:{
+        type:String,
+        required:true
+    },
     desc:{
         type:String,
         required: true
