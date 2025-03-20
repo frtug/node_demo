@@ -25,8 +25,8 @@ module.exports.login = (req,res)=>{
         if(!user){
             return res.redirect('/auth/getlogin')
         }
-        bcrypt.compare(password,user.password).then(isMactched=>{
-            if(isMactched){
+        bcrypt.compare(password,user.password).then(isMatched=>{
+            if(isMatched){
                 req.session.user = user;
                 req.session.isLoggedIn = true
                 console.log("successful login")
@@ -41,7 +41,7 @@ module.exports.login = (req,res)=>{
     })
     // req.session.destory(); //logout from the session
 }
-module.exports.signUp = async(req,res)=>{
+module.exports.signUp = async(req,res,next)=>{
     console.log(" signup ")
     const {email,password} = req.body;
     // TODO add the js to do validation....
@@ -53,22 +53,16 @@ module.exports.signUp = async(req,res)=>{
             isAuthenticated:req.session.isLoggedIn,
             errorMessage:errors.array()[0].msg
         })
-
     }
     // login....
     const { Resend } = await import('resend');
 
     const resend = new Resend(process.env.EMAIL_KEY);
-    User.findOne({email:email}).then(userDoc => {
-        if(userDoc){
-            console.log("user already exists")
-            return res.redirect('/auth/login')
-        }
-        return bcrypt.hash(password,12).then((hash_pass)=>{
+    
+     bcrypt.hash(password,12).then((hash_pass)=>{
             const user = new User({email:email,password:hash_pass,movies:[]})
             return user.save();
-        })
-    }).then(result=>{
+        }).then(result=>{
         resend.emails.send({
             from: 'onboarding@resend.dev',
             to: email,
@@ -76,6 +70,14 @@ module.exports.signUp = async(req,res)=>{
             html: '<p>Welcome you have created your Account is Movie platform  <strong>First Account</strong>!</p>'
           });
         res.redirect('/auth/getlogin')
+    }).catch(err=>{
+        // the way to make error handle properly with 
+        // Express middleware....
+        console.log("error on the catch")
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        error.msg = "Unable to handle the require"
+        return next(error)
     })
 }
 module.exports.getsignUp = (req,res)=>{

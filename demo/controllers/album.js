@@ -40,11 +40,13 @@ module.exports.getMoviePage = (req,res,next)=>{
 
 module.exports.postMovie = async (req, res) => {
     console.log("Adding name in express");
-    const user = req.session.user; 
+    const user = req.session.user;
+    console.log(req.file.path)
     const movie = new Movie({
         title: req.body.title,
         desc: "A daring crew embarks on an interstellar journey",
         tags: "Sci-Fi,Action,Comedy",
+        imageUrl:req.file.path,
         rating: 4,
         userId:user._id
     });

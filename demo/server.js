@@ -1,5 +1,6 @@
 const express = require('express')
 var cors = require('cors')
+const multer  = require('multer')
 
 const adminRoute = require('./routes/admins.js')
 const homeRoute = require('./routes/home.js')
@@ -15,10 +16,18 @@ var MongoDBStore = require('connect-mongodb-session')(session);
 
 const app = express()
 const port = 3000
-
+const fileStorage = multer.diskStorage({
+    destination: (req,file,cb)=>{
+        cb(null,'images')
+    },
+    filename:(req,file,cb)=>{
+        cb(null, new Date().toISOString()+'-'+file.originalname)
+    }
+})
 app.use(cors())
 app.use(express.urlencoded({extended:true}))
 app.use(express.json());
+app.use(multer({storage:fileStorage}).single('image'))
 
 const store = new MongoDBStore({
     uri: process.env.MONGO_URI,
@@ -34,6 +43,8 @@ app.use(
     })
 )
 app.use(express.static('public'))
+app.use('/images',express.static('images'))
+
 
 app.set('view engine', 'ejs')
 app.set('views','./views')
@@ -49,7 +60,11 @@ app.use(homeRoute.router)
 
 app.use('*',errors.post_404)
 
-
+app.use((error,req,res,next)=>{
+    console.log("error",error.msg)
+    res.redirect('/auth/getsignUp')
+    // Create a page 
+})
 
 
 mongoose.connect(process.env.MONGO_URI).then(()=>{

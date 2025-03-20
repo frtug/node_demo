@@ -5,6 +5,7 @@
   box-sizing: border-box;
 }
 
+
 body {
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
@@ -183,6 +184,16 @@ body {
   padding: 1.5rem;
   margin-top: 2rem;
 }
+
+img{
+  opacity: 0.9;
+  object-fit:fill;
+  width: 100%;
+  height: 100%;
+
+}
+
+
 
 /* Responsive Adjustments */
 @media screen and (max-width: 768px) {
