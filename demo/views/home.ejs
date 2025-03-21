@@ -35,8 +35,10 @@
         </div>
     </main>
     <section class="pagination">
-        <a href="/admin/?page=1" >1</a> 
-        <a href="/admin/?page=2" >2</a> 
+        <% for(let i =1;i <= totalPages;i++){ %>
+            <a href="/admin/?page=<%=i%>" ><%= i %></a> 
+        <%} %>
+
     </section>
 
     <footer class="main-footer">

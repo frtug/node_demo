@@ -12,15 +12,18 @@ module.exports.view_home = (req,res)=>{
     // console.log(isLoggedIn)
     // console.log(req.session.user)
     if(req.session.user){
-        Movie.find({userId:req.session.user._id}).skip((page-1)*MAX_PER_PAGE).limit(MAX_PER_PAGE).then((m)=> {
+        Movie.find({userId:req.session.user._id}).countDocuments().then(total=>{
+            totalPages = Math.ceil(total/MAX_PER_PAGE); // caculates the total no of pages that we need to show on the Views
+            console.log(totalPages)
+            return Movie.find()
+            .skip((page-1)*MAX_PER_PAGE)
+            .limit(MAX_PER_PAGE)
+        }).then((m)=> {
                 console.log("working")
-                // console.log(m)
-                // let movies = m;
-                // if(!m.length){
-                //     movies = []
-                // }
-                res.render('home',{path:'/',page:'Home',movies:m,isAuthenticated:isLoggedIn})
-            }); 
+                res.render('home',{path:'/',page:'Home',movies:m,isAuthenticated:req.session.isLoggedIn ,totalPages:totalPages})
+            }).catch(err=>{
+            return next(err)
+        }) 
     }
     else{
         res.render('home',{path:'/',page:'Home',movies:[],isAuthenticated:isLoggedIn})

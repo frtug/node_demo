@@ -61,7 +61,7 @@ app.use(homeRoute.router)
 app.use('*',errors.post_404)
 
 app.use((error,req,res,next)=>{
-    console.log("error",error.msg)
+    console.log("error",error)
     res.redirect('/auth/getsignUp')
     // Create a page 
 })
