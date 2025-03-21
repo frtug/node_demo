@@ -192,6 +192,21 @@ img{
   height: 100%;
 
 }
+.pagination{
+  display: flex;
+  justify-content: center;
+}
+.pagination a{
+  text-decoration: none;
+  padding: 1rem;
+  color:green;
+  font-size: 1rem;
+  border:1px solid green
+}
+.pagination a:hover{
+  color:white;
+  background-color: green;
+}
 
 
 
