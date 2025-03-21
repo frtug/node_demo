@@ -1,16 +1,20 @@
 const Movie = require('../models/movie')
 const User = require('../models/user')
 
+const MAX_PER_PAGE = 4;
+
 module.exports.view_home = (req,res)=>{
     //saving.....
-    console.log(req.user)
+    const page = req.query.page || 1
+    console.log(page)
+    // console.log(req.user)
     let isLoggedIn = req.session.isLoggedIn 
-    console.log(isLoggedIn)
-    console.log(req.session.user)
+    // console.log(isLoggedIn)
+    // console.log(req.session.user)
     if(req.session.user){
-        Movie.find({userId:req.session.user._id}).then((m)=> {
+        Movie.find({userId:req.session.user._id}).skip((page-1)*MAX_PER_PAGE).limit(MAX_PER_PAGE).then((m)=> {
                 console.log("working")
-                console.log(m)
+                // console.log(m)
                 // let movies = m;
                 // if(!m.length){
                 //     movies = []

@@ -1,7 +1,7 @@
 const express = require('express')
 var cors = require('cors')
 const multer  = require('multer')
-
+const path = require('path')
 const adminRoute = require('./routes/admins.js')
 const homeRoute = require('./routes/home.js')
 const errors = require('./controllers/errors')
@@ -43,7 +43,7 @@ app.use(
     })
 )
 app.use(express.static('public'))
-app.use('/images',express.static('images'))
+app.use('/admin/images',express.static(path.join(__dirname,'images')))
 
 
 app.set('view engine', 'ejs')
