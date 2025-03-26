@@ -16,6 +16,8 @@ var MongoDBStore = require('connect-mongodb-session')(session);
 
 const app = express()
 const port = 3000
+
+
 const fileStorage = multer.diskStorage({
     destination: (req,file,cb)=>{
         cb(null,'images')
@@ -42,8 +44,9 @@ app.use(
         
     })
 )
+
 app.use(express.static('public'))
-app.use('/admin/images',express.static(path.join(__dirname,'images')))
+app.use('/images',express.static(path.join(__dirname,'images')))
 
 
 app.set('view engine', 'ejs')
@@ -78,4 +81,113 @@ mongoose.connect(process.env.MONGO_URI).then(()=>{
 // fetch('http://localhost:3000/api/short',{method:POST})
 
 
-
+// CREATE A QUIZ APP IN REACT JS. CHECK THE GROUP FORM JSON DATA
+// {
+//     "quizTitle": "General Knowledge Quiz",
+//     "questions": [
+//       {
+//         "id": 1,
+//         "question": "What is the capital of France?",
+//         "options": [
+//           { "id": 1, "text": "Berlin" },
+//           { "id": 2, "text": "Madrid" },
+//           { "id": 3, "text": "Paris", "isCorrect": true },
+//           { "id": 4, "text": "Rome" }
+//         ]
+//       },
+//       {
+//         "id": 2,
+//         "question": "Which planet is known as the Red Planet?",
+//         "options": [
+//           { "id": 1, "text": "Venus" },
+//           { "id": 2, "text": "Mars", "isCorrect": true },
+//           { "id": 3, "text": "Jupiter" },
+//           { "id": 4, "text": "Saturn" }
+//         ]
+//       },
+//       {
+//         "id": 3,
+//         "question": "What is the largest mammal in the world?",
+//         "options": [
+//           { "id": 1, "text": "Elephant" },
+//           { "id": 2, "text": "Blue Whale", "isCorrect": true },
+//           { "id": 3, "text": "Giraffe" },
+//           { "id": 4, "text": "Polar Bear" }
+//         ]
+//       },
+//       {
+//         "id": 4,
+//         "question": "Which language is used for web styling?",
+//         "options": [
+//           { "id": 1, "text": "HTML" },
+//           { "id": 2, "text": "JavaScript" },
+//           { "id": 3, "text": "Python" },
+//           { "id": 4, "text": "CSS", "isCorrect": true }
+//         ]
+//       },
+//       {
+//         "id": 5,
+//         "question": "Who painted the Mona Lisa?",
+//         "options": [
+//           { "id": 1, "text": "Vincent van Gogh" },
+//           { "id": 2, "text": "Pablo Picasso" },
+//           { "id": 3, "text": "Leonardo da Vinci", "isCorrect": true },
+//           { "id": 4, "text": "Michelangelo" }
+//         ]
+//       }
+//     ]
+//   }{
+//   "quizTitle": "General Knowledge Quiz",
+//   "questions": [
+//     {
+//       "id": 1,
+//       "question": "What is the capital of France?",
+//       "options": [
+//         { "id": 1, "text": "Berlin" },
+//         { "id": 2, "text": "Madrid" },
+//         { "id": 3, "text": "Paris", "isCorrect": true },
+//         { "id": 4, "text": "Rome" }
+//       ]
+//     },
+//     {
+//       "id": 2,
+//       "question": "Which planet is known as the Red Planet?",
+//       "options": [
+//         { "id": 1, "text": "Venus" },
+//         { "id": 2, "text": "Mars", "isCorrect": true },
+//         { "id": 3, "text": "Jupiter" },
+//         { "id": 4, "text": "Saturn" }
+//       ]
+//     },
+//     {
+//       "id": 3,
+//       "question": "What is the largest mammal in the world?",
+//       "options": [
+//         { "id": 1, "text": "Elephant" },
+//         { "id": 2, "text": "Blue Whale", "isCorrect": true },
+//         { "id": 3, "text": "Giraffe" },
+//         { "id": 4, "text": "Polar Bear" }
+//       ]
+//     },
+//     {
+//       "id": 4,
+//       "question": "Which language is used for web styling?",
+//       "options": [
+//         { "id": 1, "text": "HTML" },
+//         { "id": 2, "text": "JavaScript" },
+//         { "id": 3, "text": "Python" },
+//         { "id": 4, "text": "CSS", "isCorrect": true }
+//       ]
+//     },
+//     {
+//       "id": 5,
+//       "question": "Who painted the Mona Lisa?",
+//       "options": [
+//         { "id": 1, "text": "Vincent van Gogh" },
+//         { "id": 2, "text": "Pablo Picasso" },
+//         { "id": 3, "text": "Leonardo da Vinci", "isCorrect": true },
+//         { "id": 4, "text": "Michelangelo" }
+//       ]
+//     }
+//   ]
+// }
