@@ -35,8 +35,8 @@ const Login = () => {
         console.log(response)
         if(!response.ok) throw "Sever didn't proper response";
         const data = await response.json();
-        console.log(data)
-        // localStorage.set('token',data.token)
+        console.log(data.token)
+        localStorage.setItem('token',data.token)
       }
       catch(err){
         console.log(err)

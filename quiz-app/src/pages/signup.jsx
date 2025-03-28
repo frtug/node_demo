@@ -38,7 +38,7 @@ const Signup = () => {
       try{
         const response = await axios.post(`${API_BASE_URL}/auth/signup`,formData,{
           header:{'Content-Type':'application/json'}
-          // 'Authorization':token 
+          // 'Authorization':"Bearer token" 
         })
         const data = response.data;
         console.log(data.token)

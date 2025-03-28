@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Quiz.css';
+import Communication from './communcation';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'http://localhost:5000';
+
 
 const Quiz = () => {
   const [currentQuestionId, setCurrentQuestionId] = useState(1);
@@ -16,11 +18,16 @@ const Quiz = () => {
   const [correctAnswer,setCorrectAnswer] = useState(null)
   // Fetch total questions from backend
 
+  // useEffect(()=>{
+  //   socket.on("")
+  //   // socket which will handle receiving the data 
 
+  //   // and we have to close the connection ..
+  // },[])
   useEffect(() => {
     const fetchTotalQuestions = async () => {
       try {
-        const result = await axios.get(API_BASE_URL);
+        const result = await axios.get(`${API_BASE_URL}/api`);
         console.log(result.data)
         // const result = await fetch(API_BASE_URL)
         // console.log(result)
@@ -40,9 +47,13 @@ const Quiz = () => {
     const fetchQuestion = async () => {
       setIsLoading(true);
       try {
+        const token = localStorage.getItem('token')
 
-        const response = await axios.get(`${API_BASE_URL}/questions/${currentQuestionId}`);
-
+        const response = await axios.get(`${API_BASE_URL}/api/questions/${currentQuestionId}`,{
+          headers:{
+            'Authorization':`Bearer ${token}`
+          }
+        });
 
         setCurrentQuestion(response.data);
         setSelectedOption(null);
@@ -59,11 +70,16 @@ const Quiz = () => {
 
   const handleAnswerOptionClick = async (optionIndex) => {
     setSelectedOption(optionIndex);
-    
+    const token = localStorage.getItem('token')
+
     try {
-      const response = await axios.post(`${API_BASE_URL}/verify-answer`, {
+      const response = await axios.post(`${API_BASE_URL}/api/verify-answer`, {
         questionId: currentQuestionId,
         selectedOption: optionIndex
+      },{
+        headers:{
+          'Authorization':`Bearer ${token}`
+        }
       });
       // await fetch(URL,{
       //   headers:{
@@ -111,6 +127,7 @@ const Quiz = () => {
         <div className="score-section">
           <h2>Quiz Completed!</h2>
           <p>You scored {score} out of {totalQuestion}</p>
+          <Communication/>
         </div>
       ) : (
         <>
