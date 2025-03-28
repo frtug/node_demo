@@ -1,13 +1,24 @@
 const express = require('express');
 const cors = require('cors');
+const { createServer } = require('node:http');
+const  socketIo  = require("socket.io");
 
 const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken')
+
 const app = express();
+const server = createServer(app);
+
+const io = socketIo(server,{
+  cors:{
+    origin:'http://localhost:5173', // react frontend
+    methods:['GET',"POST"]
+  }
+});
+// TODO to handle cors
+
 const PORT = 5000;
-
-
 
 
 app.use(cors());
@@ -47,6 +58,15 @@ function verifyToken(req,res,next){
   }
   next()
 }
+
+
+
+
+
+app.get("/",(req,res,next)=>{
+  console.log("Socket io is connected")
+  next();
+})
 // API endpoint to get a specific question
 app.get('/api',(req,res)=>{
     const totalQuestion = questions.length;
@@ -55,7 +75,6 @@ app.get('/api',(req,res)=>{
 })
 app.get('/api/questions/:id', (req, res) => {
   
-
   const questionId = parseInt(req.params.id);
   const question = questions.find(q => q.id === questionId);
   
@@ -92,13 +111,26 @@ app.post('/api/auth/signup',(req,res)=>{
     console.log(req.body)
     const access_token = jwt.sign({
         email:email
-    },"My Key")
+    },"My Key",{expiresIn:'7d'})
     token = access_token
     res.status(200).json({message:"success",token:token})
 })
 
 
+io.on('connection',(socket)=>{
+  console.log("User connected",socket.id);
+
+  socket.on('message',(data)=>{
+    // saving to db or something we need
+    console.log(data)
+    io.emit('message',data)
+
+  })
+
+  socket.on('disconnect',()=>{console.log("disconnected",socket.id)});
+})
+
 // Start server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
